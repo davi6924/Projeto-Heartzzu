@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="Fotos/favicon_io/favicon.ico" type="image/x-icon">
+  <title>Davi & Patrícia</title>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      font-family: 'Arial', sans-serif;
+      background-color: #121212;
+      color: #f1f1f1;
+    }
+    section {
+      text-align: center;
+    }
+    /* Slider */
+    .slider-container {
+      position: relative;
+      max-width: 800px;
+      margin: 3rem auto;
+      overflow: hidden;
+    }
+    .slider {
+      display: flex;
+      width: auto;
+      animation: slide 12s infinite linear;
+    }
+    .slide {
+      width: 100%;
+      flex-shrink: 0;
+    }
+    .slide img {
+      width: 400px;
+      height: 400px;
+      object-fit: contain;
+      border-radius: 12px;
+    }
+    @keyframes slide {
+      0%, 33% { transform: translateX(0); }
+      34%, 66% { transform: translateX(-100%); }
+      67%, 100% { transform: translateX(-200%); }
+    }
+
+    /* Título e texto */
+    .love-title {
+        font-family: Dancing Script, Dancing Script Fallback;
+        font-weight: 700;
+        font-style: normal;
+        color: #ff0000;
+        font-size: 1.875rem;
+        line-height: 2.25rem;
+
+    }
+    .love-text {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+    font-feature-settings: normal;
+    font-size: 1em;
+    font-variation-settings: normal;
+    max-width: 50%;
+    margin: 0 auto;
+    align-self: center;
+    }
+
+    /* Contador */
+    .countdown-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .time-card {
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      min-width: 100px;
+    }
+    .time-card h2 {
+      font-size: 2rem;
+      margin-bottom: 5px;
+      color: #ffdd59;
+    }
+    .time-card span {
+      font-size: 1rem;
+      color: #aaa;
+    }
+    .section1 {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+    .tempo {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+    }
+    .tempo h1 {
+        font-family: Lora, Lora Fallback;
+        font-style: italic;
+    }
+    .tempo p {
+        font-family: Lora, Lora Fallback;
+        font-style: italic;
+    }
+    footer {
+      padding: 20px;
+      color: #888;
+     text-align: center;
+     font-size: .875rem;
+    line-height: 1.25rem;
+    }
+  </style>
+</head>
+<body>
+  <section>
+    <div class="slider-container">
+      <div class="slider">
+        <div class="slide"><img src="Fotos/img1.jpeg" alt="Foto 1" /></div>
+        <div class="slide"><img src="Fotos/img2.jpeg" alt="Foto 2" /></div>
+        <div class="slide"><img src="Fotos/img3.jpeg"alt="Foto 3" /></div>
+        <div class="slide"><img src="Fotos/img4.jpeg"alt="Foto 4" /></div>
+        <div class="slide"><img src="Fotos/img5.jpeg"alt="Foto 5" /></div>
+        <div class="slide"><img src="Fotos/img6.jpeg"alt="Foto 6" /></div>
+        <div class="slide"><img src="Fotos/img7.jpeg"alt="Foto 7" /></div>
+        <div class="slide"><img src="Fotos/img8.jpeg"alt="Foto 8" /></div>
+        <div class="slide"><img src="Fotos/img9.jpeg"alt="Foto 9" /></div>
+        <div class="slide"><img src="Fotos/img10.jpeg"alt="Foto 10" /></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section1">
+    <h1 class="love-title">Davi & Patrícia</h1>
+    <p class="love-text">Meu amor, sou grato por esses <span id="init"></span>meses com você me fazendo feliz e tornando cada momento com inesquecível, sou apaixonado no seu olhar a cada vez que te encontro tenho certeza que tomei a decisão certa em namorar com você, te amo minha princesa. ❤️ </p>
+  </section>
+
+  <section class="tempo">
+    <h1>Compartilhando momentos há</h1>
+    <div class="countdown-container" id="countdown">
+      <!-- Cards com o contador inseridos via JS -->
+    </div>
+  </section>
+
+  <footer>
+     Desde 12 de Março de 2025
+  </footer>
+
+  <script>
+    const startDate = new Date("2025-03-12T00:00:00");
+    const countdownContainer = document.getElementById("countdown");
+    const initSpan = document.getElementById("init");
+    const numeroPorExtenso = [
+      "zero", "um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove", "dez",
+      "onze", "doze", "treze", "quatorze", "quinze", "dezesseis", "dezessete", "dezoito", "dezenove",
+      "vinte", "vinte e um", "vinte e dois", "vinte e três", "vinte e quatro", "vinte e cinco",
+      "vinte e seis", "vinte e sete", "vinte e oito", "vinte e nove", "trinta"
+    ];
+    function updateCountdown() {
+      const now = new Date();
+      let diff = now - startDate;
+
+      const seconds = Math.floor(diff / 1000) % 60;
+      const minutes = Math.floor(diff / 1000 / 60) % 60;
+      const hours = Math.floor(diff / 1000 / 60 / 60) % 24;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const months = Math.floor(days / 30.44);
+      const years = Math.floor(months / 12);
+
+      const timeValues = {
+        Anos: years,
+        Meses: months % 12,
+        Dias: days % 30,
+        Horas: hours,
+        Minutos: minutes,
+        Segundos: seconds,
+      };
+      
+      countdownContainer.innerHTML = Object.entries(timeValues).map(([label, value]) => `
+        <div class="time-card">
+          <h1>${value}</h1>
+          <p>${label.toLocaleLowerCase()}</p>
+        </div>
+      `).join("");
+   
+      // Atualiza meses no parágrafo em extenso
+      const extenso = numeroPorExtenso[months] || months;
+      initSpan.textContent = extenso;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+</body>
+</html>
