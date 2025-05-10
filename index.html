@@ -46,6 +46,9 @@
       height: 400px;
       object-fit: contain;
       border-radius: 12px;
+      flex-shrink: 0;
+      padding: 0%;
+      border: 2px solid #ff6b81;
     }
     @keyframes slide {
       0%, 33% { transform: translateX(0); }
@@ -68,7 +71,7 @@
     font-feature-settings: normal;
     font-size: 1em;
     font-variation-settings: normal;
-    max-width: 50%;
+    max-width: 80%;
     margin: 0 auto;
     align-self: center;
     }
@@ -121,6 +124,79 @@
      font-size: .875rem;
     line-height: 1.25rem;
     }
+     /* Player de música */
+     @keyframes slide {
+      0%, 33% { transform: translateX(0); }
+      34%, 66% { transform: translateX(-100%); }
+      67%, 100% { transform: translateX(-200%); }
+    }
+    .music-wrapper {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #1f1f1f;
+  border: 2px solid #ff6b81;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.music-wrapper.hidden {
+  transform: translateX(120%);
+  opacity: 0;
+}
+
+.vinyl {
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(circle, #444 20%, #000 70%);
+  border-radius: 50%;
+  position: relative;
+  animation: spin 4s linear infinite;
+}
+
+.vinyl::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background: #ff6b81;
+  border-radius: 50%;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.music-player audio {
+  height: 30px;
+  width: 150px;
+  filter: invert(1);
+}
+
+.toggle-button {
+  position: fixed;
+  bottom: 80%;
+  right: 1%;
+  background: #ff6b81;
+  border: none;
+  color: #fff;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1001;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
   </style>
 </head>
 <body>
@@ -153,9 +229,17 @@
     </div>
   </section>
 
+  
   <footer>
-     Desde 12 de Março de 2025
+    Desde 12 de Março de 2025
   </footer>
+  <button class="toggle-button" onclick="togglePlayer()">🎵</button>
+  <div class="music-wrapper" id="musicWrapper">
+    <div class="vinyl"></div>
+    <div class="track-name">L7NNON - Vida Toda Letra</div>
+    <div class="music-player">
+      <audio id="audioPlayer" src="./Musga/01 L7NNON - Vida Toda Letra _128k.mp3" autoplay loop controls></audio>
+    </div>
 
   <script>
     const startDate = new Date("2025-03-12T00:00:00");
@@ -198,6 +282,11 @@
       const extenso = numeroPorExtenso[months] || months;
       initSpan.textContent = extenso;
     }
+    function togglePlayer() {
+  const wrapper = document.getElementById('musicWrapper');
+  wrapper.classList.toggle('hidden');
+}
+
     setInterval(updateCountdown, 1000);
     updateCountdown();
   </script>
