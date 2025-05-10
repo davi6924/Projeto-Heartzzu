@@ -35,6 +35,7 @@
     .slider {
       display: flex;
       width: auto;
+      margin: auto;
       animation: slide 12s infinite linear;
     }
     .slide {
@@ -48,7 +49,7 @@
       border-radius: 12px;
       flex-shrink: 0;
       padding: 0%;
-      border: 2px solid #ff6b81;
+      margin: auto;
     }
     @keyframes slide {
       0%, 33% { transform: translateX(0); }
@@ -186,7 +187,7 @@
 .toggle-button {
   position: fixed;
   bottom: 80%;
-  right: 1%;
+  right: 5%;
   background: #ff6b81;
   border: none;
   color: #fff;
@@ -196,10 +197,35 @@
   z-index: 1001;
   box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
-
+.hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+    
+.heart {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(-10%);
+      }
+      100% {
+        transform: translateY(110vh);
+      }
+    }
   </style>
 </head>
 <body>
+  <div class="hearts" id="hearts"></div>
   <section>
     <div class="slider-container">
       <div class="slider">
@@ -286,7 +312,19 @@
   const wrapper = document.getElementById('musicWrapper');
   wrapper.classList.toggle('hidden');
 }
-
+function createHearts() {
+      const container = document.getElementById('hearts');
+      for (let i = 0; i < 40; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerHTML = '❤️'
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+        heart.style.opacity = Math.random() * 0.3 + 0.5;
+        container.appendChild(heart);
+      }
+    }
+    createHearts();
     setInterval(updateCountdown, 1000);
     updateCountdown();
   </script>
